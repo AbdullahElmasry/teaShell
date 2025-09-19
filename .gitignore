@@ -1,0 +1,12 @@
+# Ignore all object files
+*.o
+
+# Ignore default compiled executables
+a.out
+
+# Ignore build directory completely
+/build/
+
+# keep source code
+!*.c
+!*.h
