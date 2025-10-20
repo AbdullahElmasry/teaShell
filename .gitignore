@@ -6,6 +6,7 @@ a.out
 
 # Ignore build directory completely
 /build/
+/.vscode/
 
 # keep source code
 !*.c
