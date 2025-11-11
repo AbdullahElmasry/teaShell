@@ -14,14 +14,28 @@ av →   ┌───────────────┐
        │ av[1] ──► "ls\0"
        │ av[2] ──► "-l\0"
        │ av[3] ──► NULL
-       └───────────────┘ 
+       └───────────────┘
 */
+//-----------------------------------------------------------------
+
+
 
 char *cell_read_line(void){
     char *buf;
     size_t bufsize;
 
   buf = NULL; // getline will take care of it
+
+  if (getline(&buf, &bufsize) == -1){
+
+    if (feof(stdin)){
+        printf("[EOF]");
+    }
+    else{
+        printf("Getline failed");
+    }
+    
+  }
 }
 
 
@@ -37,6 +51,8 @@ int main(int ac, char **av) // ac -> argument counter,
         // 1- get line
         // int getline();
         line = cell_read_line();
+
+
 
         /* 2- get tokens gettoke
                 -> lexing > parsing EVALUATING
