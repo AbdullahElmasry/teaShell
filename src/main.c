@@ -26,8 +26,11 @@ char *cell_read_line(void){
 
   buf = NULL; // getline will take care of it
 
+  printf("$>"); // telling user to enter something!
+
   if (getline(&buf, &bufsize) == -1){
 
+    buf = NULL;
     if (feof(stdin)){
         printf("[EOF]");
     }
@@ -36,6 +39,8 @@ char *cell_read_line(void){
     }
     
   }
+
+  return buf;
 }
 
 
