@@ -17,7 +17,7 @@ av →   ┌───────────────┐
        └───────────────┘ 
 */
 
-int main(int ac, char **av) // ac -> argument counter,  
+int main(int ac, char **av) // ac -> argument counter,  av -> argument vector
 {
     (void)ac;  // tells compiler that this wont be used
     int status;
