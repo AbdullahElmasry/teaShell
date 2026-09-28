@@ -35,6 +35,10 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         argv[argc] = NULL;
 
+        if(strcmp(argv[0], "exit") == 0){
+            exit(0);
+        }
+
         // ==========================================================
 
         // Execute the given line as a shell command.
