@@ -12,7 +12,10 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         // Getting the input from keyboard
         char buf[1024];
-        fgets(buf, 1024, stdin);
+        
+        // if CTRL+D detected then fgets returns NULL, in this case we break the whole loop and shell exits
+        if(fgets(buf, 1024, stdin) == NULL) break;
+        
 
 
 
