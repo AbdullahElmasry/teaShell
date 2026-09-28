@@ -35,6 +35,8 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         argv[argc] = NULL;
 
+        // Exit command 
+        if(argv[0] == NULL) continue;
         if(strcmp(argv[0], "exit") == 0){
             exit(0);
         }
