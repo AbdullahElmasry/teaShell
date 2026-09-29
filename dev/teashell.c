@@ -4,11 +4,12 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <signal.h>
+#include <errno.h>
 
 
 // Signal Handler function , currenrly SIGINT, SIGTERM supported
 void handler(int sig){
-    
+
     if (sig == SIGINT) {
         char msg[] = "Recieved TERMINATION signal!\n";
         write(STDOUT_FILENO, msg, sizeof(msg));
@@ -42,9 +43,25 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         // Getting the input from keyboard
         char buf[1024];
+
+        
         
         // if CTRL+D detected then fgets returns NULL, in this case we break the whole loop and shell exits
-        if(fgets(buf, 1024, stdin) == NULL) break;
+        if(fgets(buf, 1024, stdin) == NULL){
+            // feof checks if its EOF or not
+            if(feof(stdin)){
+                break;
+            }
+
+            // in the case of any termination signals, this will flush and clear the stdin 
+            if (errno == EINTR){ 
+                clearerr(stdin);     // clearerr resets the stdin
+                continue;
+            }
+
+            perror("Error: ");       // prints the error in a humand readable way
+            break;
+        }
         
 
 
