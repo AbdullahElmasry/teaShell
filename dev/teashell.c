@@ -3,8 +3,38 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <signal.h>
+
+
+// Signal Handler function , currenrly SIGINT, SIGTERM supported
+void handler(int sig){
+    
+    if (sig == SIGINT) {
+        char msg[] = "Recieved TERMINATION signal!\n";
+        write(STDOUT_FILENO, msg, sizeof(msg));
+    }
+
+    else if(sig == SIGTERM) {
+        char msg[] = "Recieved TERMINATION signal!\n";
+        write(STDOUT_FILENO, msg, sizeof(msg));
+    }
+}
+
 
 int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating our own bellow
+
+    struct sigaction action;
+
+    action.sa_handler = handler;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = 0;
+
+    // in the case of CTRL + C
+    sigaction(SIGINT, &action, NULL);
+
+    // in the case of termination signal
+    sigaction(SIGTERM, &action, NULL);
+
 
     while (1){
         // Prompt
