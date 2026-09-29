@@ -44,7 +44,7 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
         // Getting the input from keyboard
         char buf[1024];
 
-        
+
         
         // if CTRL+D detected then fgets returns NULL, in this case we break the whole loop and shell exits
         if(fgets(buf, 1024, stdin) == NULL){
@@ -53,13 +53,13 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
                 break;
             }
 
-            // in the case of any termination signals, this will flush and clear the stdin 
+            // in the case of any termination signals, Clear the stream error state and try reading again
             if (errno == EINTR){ 
-                clearerr(stdin);     // clearerr resets the stdin
+                clearerr(stdin);     
                 continue;
             }
 
-            perror("Error: ");       // prints the error in a humand readable way
+            perror("fgets: ");       // prints the error in a humand readable way
             break;
         }
         
@@ -113,18 +113,22 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         else if(pid < 0){
             // fork failed 
-            fprintf(stderr, "Fork FAILED!");
+            // fprintf(stderr, "Fork FAILED!");
+            perror("fork: ");
         }
 
         else{
             // this is child 
-            execvp(argv[0], &argv[0]);
+            execvp(argv[0], argv[0]);
             /* execlp: exec, 'l' >> list of arguments, 'p' >> searches PATH for the needed binary
             execvp:       'v' >> vector of arguments, 'p' >> searches PATH for the needed binary
             */ 
 
             // exec didnt work
-            fprintf(stderr, "Could not exec %s\n", buf);
+            // fprintf(stderr, "Could not exec %s\n", buf);
+
+                perror("execvp: ");
+                exit(EXIT_FAILURE);
         }
 
 
