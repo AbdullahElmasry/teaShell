@@ -17,7 +17,7 @@ A simple Unix shell written from scratch in C.
 
 - Execute external commands
 - `exit`
-- `Ctrl+D` / EOF
+- `Ctrl+D` / EOF  ( exit signal )
 - `Ctrl+C` handling
 - Basic command arguments
 
@@ -35,3 +35,6 @@ Clone the repository:
 ```bash
 git clone https://github.com/AbdullahElmasry/teaShell.git
 cd teaShell
+
+make
+./teashell
