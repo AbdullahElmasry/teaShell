@@ -104,11 +104,14 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
         // char command[400];
         // sscanf(buf, "%s", command);
 
+
+        int status;
+
         if (pid > 0){
             // this is parent :) then we should wiat for the child process to finish
 
             // wait(child status);
-            wait(NULL);
+            waitpid(pid, &status, 0);
         }
 
         else if(pid < 0){
@@ -119,7 +122,7 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
         else{
             // this is child 
-            execvp(argv[0], argv[0]);
+            execvp(argv[0], argv);
             /* execlp: exec, 'l' >> list of arguments, 'p' >> searches PATH for the needed binary
             execvp:       'v' >> vector of arguments, 'p' >> searches PATH for the needed binary
             */ 
