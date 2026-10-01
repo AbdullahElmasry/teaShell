@@ -25,6 +25,7 @@ void handler(int sig){
 int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating our own bellow
 
     struct sigaction action;
+    int last_status = 0;
 
     action.sa_handler = handler;
     sigemptyset(&action.sa_mask);
@@ -106,12 +107,30 @@ int main(/*int argc, char *argv[]*/){   // we dont need them as we are creating 
 
 
         int status;
+        int exit_code;
+        char status_str[20];     // to store the last_status
+
+        // the '$?' logic , kinda hard coded for now 
+        snprintf(status_str, sizeof(status_str), "%d", last_status);
+
+        for (int i=0; i < argc; i++){
+            if (strcmp(argv[i] , "$?")  == 0){ argv[i] = status_str;}
+        }
 
         if (pid > 0){
             // this is parent :) then we should wiat for the child process to finish
-
             // wait(child status);
             waitpid(pid, &status, 0);
+            if (WIFEXITED(status)){
+                exit_code = WEXITSTATUS(status);
+                printf("Exited with status: %d\n", exit_code);
+                last_status = exit_code;
+            }
+            else if (WIFSIGNALED(status)){
+                exit_code = WTERMSIG(status);
+                printf("Terminated by signal: %d\n", exit_code);
+                last_status = 128 + exit_code;
+            }
         }
 
         else if(pid < 0){
