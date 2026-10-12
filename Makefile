@@ -16,3 +16,9 @@ run: $(TARGET)
 	./$(TARGET)
 
 .PHONY: all clean run
+
+
+.PHONY: test
+
+test: teashell
+	./_scripts/test_behavior.sh
