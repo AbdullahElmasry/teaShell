@@ -16,7 +16,7 @@ jobs:
         run: make
 
       - name: Make behavioral test script executable
-        run: chmod +x ./.github/workflows/test_behavior.sh
+        run: chmod +x ./_scripts/test_behavior.sh
 
       - name: Run behavioral tests
         run: make test
