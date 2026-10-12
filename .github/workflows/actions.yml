@@ -12,11 +12,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Clang
-        run: sudo apt-get update && sudo apt-get install -y clang
-
       - name: Build teaShell
-        run: make clean && make CC=clang
+        run: make clean && make
 
       - name: Make behavioral test script executable
         run: chmod +x ./_scripts/test_behavior.sh
