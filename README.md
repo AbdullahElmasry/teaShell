@@ -30,7 +30,7 @@ A simple Unix shell written from scratch in C.
 
 ## Build
 
-Clone the repository:
+Just copy and paste the commands below to clone and run directly:
 
 ```bash
 git clone https://github.com/AbdullahElmasry/teaShell.git
